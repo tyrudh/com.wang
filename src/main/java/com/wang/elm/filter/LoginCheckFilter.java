@@ -1,6 +1,7 @@
 package com.wang.elm.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.wang.elm.common.BaseContext;
 import com.wang.elm.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
@@ -31,7 +32,8 @@ public class LoginCheckFilter implements Filter {
           "/employee/login",
           "/employee/logout",
           "/backend/**",
-          "/front/**"
+          "/front/**",
+                "/common/**"
         };
 //        2、判断本次的请求是否需要处理
         boolean checked = check(urls, requestUIL);
@@ -45,6 +47,10 @@ public class LoginCheckFilter implements Filter {
 //        4、判断登录状态，如果已经登录则直接放行
         if (request.getSession().getAttribute("employee") != null){
             log.info("用户已登录，用户Id为：{}",request.getSession().getAttribute("employee"));
+
+            Long empId = (Long)request.getSession().getAttribute("employee");
+            BaseContext.setThreadLocal(empId);
+
             filterChain.doFilter(request,response);
             return;
         }

@@ -71,12 +71,12 @@ public class EmployeeController {
     public R<String> save(HttpServletRequest request,@RequestBody Employee employee){
       log.info("新增员工，员工信息：{}",employee.toString());
       employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-      employee.setCreateTime(LocalDateTime.now());
-      employee.setUpdateTime(LocalDateTime.now());
+//      employee.setCreateTime(LocalDateTime.now());
+//      employee.setUpdateTime(LocalDateTime.now());
 //      获得当前登录用户的Id
         Long empId = (Long) request.getSession().getAttribute("employee");
-        employee.setCreateUser(empId);
-        employee.setUpdateUser(empId);
+//        employee.setCreateUser(empId);
+//        employee.setUpdateUser(empId);
         employeeService.save(employee);
       return R.success("新增员工成功");
     }
@@ -110,4 +110,32 @@ public class EmployeeController {
         employeeService.page(pageInfo,queryWrapper);
         return R.success(pageInfo);
     }
+    /**
+     * 状态修改
+     * @return com.wang.elm.common.R<java.lang.String>
+     * @create 2023/4/11
+     *
+     * @param request
+     * @param employee
+     **/
+    @PutMapping
+    public R<String> update(HttpServletRequest request, @RequestBody Employee employee){
+
+       Long empId = (Long) request.getSession().getAttribute("employee");
+       employee.setUpdateTime(LocalDateTime.now());
+       employee.setUpdateUser(empId);
+       employeeService.updateById(employee);
+       return R.success("员工信息修改成功");
+    }
+
+    @GetMapping("/{id}")
+    public R<Employee> getById(@PathVariable Long id){
+        log.info("根据id查询员工信息");
+        Employee employee = employeeService.getById(id);
+        if(employee != null){
+            return R.success(employee);
+        }
+        return R.error("没有查询到信息");
+    }
+
 }
