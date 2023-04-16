@@ -3,15 +3,20 @@ package com.wang.elm.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wang.elm.common.CustomException;
+import com.wang.elm.common.R;
 import com.wang.elm.entity.Category;
 import com.wang.elm.entity.Dish;
 import com.wang.elm.entity.Setmeal;
 import com.wang.elm.mapper.CategoryMapper;
 import com.wang.elm.service.CategoryService;
+import com.wang.elm.service.DishFlavorService;
 import com.wang.elm.service.DishService;
 import com.wang.elm.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
@@ -19,6 +24,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     private SetmealService setmealService;
     @Autowired
     private DishService dishService;
+    @Autowired
+    private CategoryService categoryService;
     /**
      * 根据Id删除，删除之前进行判断
      * @param ids
@@ -46,4 +53,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         super.removeById(ids);
         //正常删除分类
     }
+
+
 }
