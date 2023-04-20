@@ -23,8 +23,10 @@ import java.util.UUID;
 @RequestMapping("/common")
 @Slf4j
 public class CommonController {
+
     @Value("${elm.path}")
     private String basePath;
+
     /**
      * 文件上传
      * @param file
@@ -53,7 +55,7 @@ public class CommonController {
             //将临时文件转存到指定位置
             file.transferTo(new File(basePath + fileName));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return R.success(fileName);
     }
