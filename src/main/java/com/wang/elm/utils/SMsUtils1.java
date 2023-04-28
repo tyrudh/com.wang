@@ -26,7 +26,7 @@ class SMsUtils1 {
     public static void sendMessage() throws Exception {
 //        java.util.List<String> args = java.util.Arrays.asList(args_);
         // 工程代码泄露可能会导致AccessKey泄露，并威胁账号下所有资源的安全性。以下代码示例仅供参考，建议使用更安全的 STS 方式，更多鉴权访问方式请参见：https://help.aliyun.com/document_detail/378657.html
-        com.aliyun.dysmsapi20170525.Client client = SMsUtils1.createClient("LTAI5t7jt2QEGNBE5ELYbQXn", "CPdcSShrw5hO7tKG7wCm0Ss1GcFw0v");
+        com.aliyun.dysmsapi20170525.Client client = SMsUtils1.createClient("", "");
         com.aliyun.dysmsapi20170525.models.SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
                 .setSignName("阿里云短信测试")
                 .setTemplateCode("SMS_154950909")
